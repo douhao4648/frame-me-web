@@ -1,0 +1,29 @@
+{
+  "name": "@frame-me/request",
+  "version": "0.1.3",
+  "description": "frame-me 请求层：统一 Result/PageData 解包、token 注入、401 刷新重试",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "lint": "eslint src",
+    "prepack": "pnpm build"
+  },
+  "devDependencies": {
+    "@frame-me/config": "workspace:*",
+    "typescript": "6.0.3",
+    "vitest": "^5.0.1"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@frame-me/config",
+  "version": "0.1.3",
+  "description": "frame-me 前端共享构建规范：tsconfig / eslint / prettier / vite preset",
+  "type": "module",
+  "exports": {
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./eslint": "./eslint.config.js",
+    "./prettier": "./prettier.config.js",
+    "./vite": {
+      "types": "./vite.d.ts",
+      "default": "./vite.js"
+    }
+  },
+  "files": [
+    "tsconfig.base.json",
+    "eslint.config.js",
+    "prettier.config.js",
+    "vite.js",
+    "vite.d.ts"
+  ],
+  "peerDependencies": {
+    "@vitejs/plugin-react": ">=6",
+    "eslint": ">=10",
+    "typescript": ">=6.0.0 <6.1.0",
+    "typescript-eslint": ">=8.70.0",
+    "vite": ">=8"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}
