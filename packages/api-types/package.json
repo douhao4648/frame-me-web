@@ -1,6 +1,6 @@
 {
   "name": "@frame-me/api-types",
-  "version": "0.1.3",
+  "version": "0.2.1",
   "description": "frame-me-gen-api：从后端 OpenAPI（/v3/api-docs）生成 TS 契约类型，多服务分文件",
   "type": "module",
   "bin": {
@@ -26,7 +26,9 @@
   },
   "devDependencies": {
     "@frame-me/config": "workspace:*",
+    "eslint": "^10.10.0",
     "typescript": "6.0.3",
+    "typescript-eslint": "^8.70.0",
     "vitest": "^5.0.1"
   },
   "publishConfig": {

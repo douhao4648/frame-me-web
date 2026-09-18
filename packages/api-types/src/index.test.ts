@@ -97,7 +97,10 @@ describe('generateApiTypes', () => {
   });
 
   it('拉取文档失败时报错并带服务名', async () => {
-    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response('x', { status: 500 }))));
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => Promise.resolve(new Response('x', { status: 500 }))),
+    );
     const outDir = await mkdtemp(path.join(tmpdir(), 'fm-gen-'));
     try {
       await expect(

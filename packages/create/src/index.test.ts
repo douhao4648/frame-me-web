@@ -1,8 +1,9 @@
 import { mkdtemp, readFile, rm, writeFile, mkdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { PassThrough } from 'node:stream';
 import { describe, expect, it } from 'vitest';
-import { createApp } from './index';
+import { createApp, createAsker } from './index';
 
 /** 造一个最小模板目录，验证复制 + 占位符 + workspace 改写。
  *  模板放在 node_modules 命名的父目录下——复现发布后真实场景
@@ -76,10 +77,31 @@ describe('createApp', () => {
       expect(gitignore).toBe('node_modules\n');
 
       // node_modules 不应被复制
-      await expect(readFile(path.join(targetDir, 'node_modules', 'skip.js'), 'utf8')).rejects.toThrow();
+      await expect(
+        readFile(path.join(targetDir, 'node_modules', 'skip.js'), 'utf8'),
+      ).rejects.toThrow();
     } finally {
       await rm(templateDir, { recursive: true, force: true });
       await rm(targetDir, { recursive: true, force: true });
     }
+  });
+});
+
+describe('createAsker', () => {
+  // 回归：rl.question 在管道输入下会吞掉提前到达的行，EOF 后静默退出
+  it('一次性灌入多行不吞行，EOF 回落默认值', async () => {
+    const input = new PassThrough();
+    const output = new PassThrough();
+    const { ask, close } = createAsker(input, output);
+    input.end('商城后台\n\n'); // 两行一次灌入 + EOF
+
+    const description = await ask('项目描述', '默认描述');
+    const port = await ask('端口', '5173');
+    const eofFallback = await ask('不会有输入了', '兜底');
+    close();
+
+    expect(description).toBe('商城后台');
+    expect(port).toBe('5173'); // 空行 → 默认值
+    expect(eofFallback).toBe('兜底'); // EOF → 默认值，不静默退出
   });
 });

@@ -1,3 +1,8 @@
 packages:
   - packages/*
   - templates/*
+
+peerDependencyRules:
+  # openapi-typescript@7 peer 锁 typescript ^5；TS 6 下实测生成正常，等官方放宽后删除
+  allowedVersions:
+    typescript: '6'

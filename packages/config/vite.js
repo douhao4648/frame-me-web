@@ -22,5 +22,24 @@ export function frameMeViteConfig({ port = 5173, proxy = {}, plugins = [] } = {}
       port,
       proxy,
     },
+    build: {
+      rolldownOptions: {
+        output: {
+          // vendor 拆包：antd/react 稳定且大，独立 chunk 可长期缓存，
+          // 业务代码改动不再让用户重下整个 bundle。消费方可覆盖 build 字段。
+          codeSplitting: {
+            groups: [
+              { name: 'ui-vendor', test: /node_modules[\\/](antd|@ant-design)/, priority: 20 },
+              {
+                name: 'react-vendor',
+                test: /node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)/,
+                priority: 15,
+              },
+              { name: 'vendor', test: /node_modules/, priority: 10 },
+            ],
+          },
+        },
+      },
+    },
   };
 }

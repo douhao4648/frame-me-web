@@ -5,17 +5,10 @@
  * 用法：npm init @frame-me [项目名]
  * 未提供的参数进入交互问答。
  */
-import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
-import { createApp } from './index.js';
+import { createApp, createAsker } from './index.js';
 
-const rl = createInterface({ input: stdin, output: stdout });
-
-async function ask(question: string, fallback?: string): Promise<string> {
-  const suffix = fallback ? `（默认 ${fallback}）` : '';
-  const answer = (await rl.question(`${question}${suffix}: `)).trim();
-  return answer || fallback || '';
-}
+const { ask, close } = createAsker(stdin, stdout);
 
 async function main(): Promise<void> {
   console.log('\nframe-me 管理后台工程生成器\n');
@@ -30,7 +23,7 @@ async function main(): Promise<void> {
   const portText = await ask('dev server 端口', '5173');
   const port = Number.parseInt(portText, 10) || 5173;
 
-  rl.close();
+  close();
 
   const targetDir = await createApp({ name, description, port });
 
@@ -46,7 +39,7 @@ async function main(): Promise<void> {
 }
 
 main().catch((e: unknown) => {
-  rl.close();
+  close();
   console.error(`✗ ${e instanceof Error ? e.message : String(e)}`);
   process.exit(1);
 });

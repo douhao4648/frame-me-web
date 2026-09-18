@@ -7,6 +7,7 @@ dist/
 *.tsbuildinfo
 coverage/
 .vite/
+.vite-temp/
 
 # 日志
 *.log

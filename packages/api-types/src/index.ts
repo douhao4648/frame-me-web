@@ -59,9 +59,18 @@ export type PageResult<T> = IResult<PageData<T>>;
 `;
 
 async function fetchOpenApiDoc(service: GenService): Promise<Record<string, unknown>> {
-  const res = await fetch(service.docsUrl, { headers: service.headers });
+  let res: Response;
+  try {
+    res = await fetch(service.docsUrl, { headers: service.headers });
+  } catch (e) {
+    throw new Error(
+      `[${service.name}] 无法连接 ${service.docsUrl}——后端服务是否在运行？（${e instanceof Error ? e.message : String(e)}）`,
+    );
+  }
   if (!res.ok) {
-    throw new Error(`[${service.name}] 拉取 OpenAPI 文档失败：${service.docsUrl}（HTTP ${res.status}）`);
+    throw new Error(
+      `[${service.name}] 拉取 OpenAPI 文档失败：${service.docsUrl}（HTTP ${res.status}）`,
+    );
   }
   return (await res.json()) as Record<string, unknown>;
 }

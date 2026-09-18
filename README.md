@@ -63,8 +63,8 @@ pnpm test         # packages/* 单测（vitest）
 
 ```bash
 pnpm changeset     # 记录变更（或直接手写 .changeset/*.md）
-pnpm run version   # 提升版本号（fixed 组四包联动）
-pnpm release       # 构建并发布到 GitHub Packages（frame-me 组织，凭证走用户级 ~/.npmrc）
+pnpm run version   # 提升版本号（fixed 组四包联动）。必须带 run：pnpm 11 裸 `pnpm version` 被内建命令劫持
+pnpm release       # 构建并发布（registry 由 .npmrc 决定：当前本地 Verdaccio；恢复 GitHub Packages 见 .npmrc 注释）
 ```
 
 ⚠️ 凭证不在项目级 `.npmrc` 存 token（pnpm 不展开 `${}` 且文件被 git 追踪），统一用户级配置，见上文「一次性前置」。

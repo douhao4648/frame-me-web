@@ -18,13 +18,7 @@ export default function LoginPage() {
         <Typography.Paragraph type="secondary">
           frame-me 管理后台 · SSO 统一认证
         </Typography.Paragraph>
-        <Button
-          type="primary"
-          size="large"
-          icon={<LoginOutlined />}
-          block
-          onClick={redirectToSso}
-        >
+        <Button type="primary" size="large" icon={<LoginOutlined />} block onClick={redirectToSso}>
           使用 SSO 登录
         </Button>
       </Card>

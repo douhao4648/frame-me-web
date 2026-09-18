@@ -36,7 +36,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 pnpm i
 pnpm build        # 构建 packages/*
 pnpm test         # packages/* 单测（vitest）
-pnpm changeset && pnpm version && pnpm release   # 发包（需 GITHUB_TOKEN）
+pnpm changeset && pnpm run version && pnpm release   # 发包（version 必须带 run，pnpm 11 裸命令被内建劫持；registry 由 .npmrc 决定，当前本地 Verdaccio）
 ```
 
 模板开发调试：`cd templates/admin && pnpm dev`（本地联调需 frame-me-sso:10010 + RP 后端:8080 + frame-me-audit:10020）。

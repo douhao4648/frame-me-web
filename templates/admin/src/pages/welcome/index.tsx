@@ -6,8 +6,8 @@ export default function Welcome() {
     <PageContainer title="欢迎使用 {{name}}">
       <ProCard>
         <Typography.Paragraph>
-          本工程由 <Typography.Text code>npm init @frame-me</Typography.Text>{' '}
-          生成，基于 frame-me-web 管理后台模板。
+          本工程由 <Typography.Text code>npm init @frame-me</Typography.Text> 生成，基于
+          frame-me-web 管理后台模板。
         </Typography.Paragraph>
         <Typography.Title level={5}>常用命令</Typography.Title>
         <ul>
@@ -15,8 +15,8 @@ export default function Welcome() {
             <Typography.Text code>pnpm dev</Typography.Text> — 本地开发
           </li>
           <li>
-            <Typography.Text code>pnpm gen:api</Typography.Text> —
-            从后端 OpenAPI 重新生成契约类型（服务清单见 frame-me.config.mjs）
+            <Typography.Text code>pnpm gen:api</Typography.Text> — 从后端 OpenAPI
+            重新生成契约类型（服务清单见 frame-me.config.mjs）
           </li>
           <li>
             <Typography.Text code>pnpm build</Typography.Text> — 生产构建

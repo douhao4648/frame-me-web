@@ -9,12 +9,17 @@
   "scripts": {
     "build": "pnpm -r --filter='./packages/*' build",
     "test": "pnpm -r --filter='./packages/*' test",
-    "lint": "pnpm -r lint",
+    "lint": "eslint packages/*/src templates/admin/src",
+    "format": "prettier --write packages/*/src packages/create/scripts",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
-    "@changesets/cli": "^3.0.3"
+    "@changesets/cli": "^3.0.3",
+    "@frame-me/config": "workspace:*",
+    "eslint": "^10.10.0",
+    "prettier": "^3.9.7",
+    "typescript-eslint": "^8.70.0"
   }
 }

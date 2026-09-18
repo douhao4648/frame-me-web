@@ -8,6 +8,7 @@ dist
 *.tsbuildinfo
 coverage/
 .vite/
+.vite-temp/
 
 # 本地工具与密钥
 .omc

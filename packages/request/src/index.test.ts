@@ -9,10 +9,13 @@ function jsonResponse(body: unknown, status = 200): Response {
 }
 
 function stubFetch(handler: (url: string, init?: RequestInit) => Response | Promise<Response>) {
-  vi.stubGlobal('fetch', vi.fn((input: RequestInfo | URL, init?: RequestInit) => {
-    const url = typeof input === 'string' ? input : input.toString();
-    return Promise.resolve(handler(url, init));
-  }));
+  vi.stubGlobal(
+    'fetch',
+    vi.fn((input: RequestInfo | URL, init?: RequestInit) => {
+      const url = typeof input === 'string' ? input : input.toString();
+      return Promise.resolve(handler(url, init));
+    }),
+  );
 }
 
 afterEach(() => {
@@ -27,7 +30,9 @@ describe('createClient', () => {
   });
 
   it('query 拼接：剔除空值、数组重复拼接', async () => {
-    const fetchMock = vi.fn(() => Promise.resolve(jsonResponse({ code: 200, msg: 'ok', data: null })));
+    const fetchMock = vi.fn(() =>
+      Promise.resolve(jsonResponse({ code: 200, msg: 'ok', data: null })),
+    );
     vi.stubGlobal('fetch', fetchMock);
     const client = createClient();
     await client.get('/api/x', { query: { a: 1, b: undefined, c: '', d: ['x', 'y'] } });
@@ -39,7 +44,9 @@ describe('createClient', () => {
   });
 
   it('注入 token 头（默认 Authorization Bearer）', async () => {
-    const fetchMock = vi.fn(() => Promise.resolve(jsonResponse({ code: 200, msg: 'ok', data: null })));
+    const fetchMock = vi.fn(() =>
+      Promise.resolve(jsonResponse({ code: 200, msg: 'ok', data: null })),
+    );
     vi.stubGlobal('fetch', fetchMock);
     const client = createClient({ getToken: () => 'tk' });
     await client.get('/api/x');
@@ -48,7 +55,9 @@ describe('createClient', () => {
   });
 
   it('sa-token 下游可换 headerName/tokenPrefix', async () => {
-    const fetchMock = vi.fn(() => Promise.resolve(jsonResponse({ code: 200, msg: 'ok', data: null })));
+    const fetchMock = vi.fn(() =>
+      Promise.resolve(jsonResponse({ code: 200, msg: 'ok', data: null })),
+    );
     vi.stubGlobal('fetch', fetchMock);
     const client = createClient({ getToken: () => 'tk', headerName: 'satoken', tokenPrefix: '' });
     await client.get('/api/x');
@@ -102,7 +111,11 @@ describe('createClient', () => {
         return true;
       },
     });
-    const results = await Promise.allSettled([client.get('/a'), client.get('/b'), client.get('/c')]);
+    const results = await Promise.allSettled([
+      client.get('/a'),
+      client.get('/b'),
+      client.get('/c'),
+    ]);
     expect(results.every((r) => r.status === 'fulfilled')).toBe(true);
     expect(refreshCalls).toBe(1);
   });

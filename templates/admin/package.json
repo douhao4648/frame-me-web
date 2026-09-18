@@ -9,7 +9,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "eslint src",
-    "gen:api": "frame-me-gen-api"
+    "gen:api": "frame-me-gen-api",
+    "format": "prettier --write src"
   },
   "dependencies": {
     "@ant-design/icons": "^6.3.4",
@@ -28,6 +29,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.1",
     "eslint": "^10.10.0",
+    "prettier": "^3.9.7",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.70.0",
     "vite": "^8.3.0"
