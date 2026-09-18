@@ -13,7 +13,7 @@
     "format": "prettier --write packages/*/src packages/create/scripts",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "pnpm build && changeset publish"
+    "release": "pnpm build && changeset publish --no-git-tag",
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
